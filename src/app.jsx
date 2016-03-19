@@ -3,12 +3,18 @@ var ReactDOM = require('react-dom');
 var ReactFire = require('reactfire');
 var Firebase = require('firebase');
 var Header = require('./header');
+var List = require('./list');
 
 //Firebase DataSource
 var rootUrl = 'https://myreacttodo.firebaseio.com/';
 
 var Hello = React.createClass({
   mixins: [ReactFire],
+  getInitialState: function(){
+    return {
+      items: {}
+    }
+  },
   componentWillMount: function(){
     this.bindAsObject(new Firebase(rootUrl + 'items/'), 'items');
   },
@@ -19,6 +25,7 @@ var Hello = React.createClass({
                   To-Do List
                 </h2>
                 <Header itemsStore = {this.firebaseRefs.items}/>
+                <List items= {this.state.items} />
               </div>
            </div>
   }
