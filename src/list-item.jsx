@@ -19,6 +19,12 @@ module.exports = React.createClass({
     this.setState(update);
     this.fb.update(update);
   },
+  handleDeleteChange: function(event){
+    var self = this;
+    $(event.currentTarget).closest('.input-group').slideUp('fast', function(){
+       self.fb.remove();
+    });
+  },
   render: function(){
     return <div className="input-group">
             <span className="input-group-addon">
@@ -30,7 +36,10 @@ module.exports = React.createClass({
             </span>
              <input type="text" className="form-control" value={this.state.text} />
              <span className="input-group-btn">
-               <button className="btn btn-default">Delete</button>
+               <button
+                  className="btn btn-default"
+                  onClick={this.handleDeleteChange}
+                  >Delete</button>
              </span>
            </div>
   }
