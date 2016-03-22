@@ -8,7 +8,8 @@ module.exports = React.createClass({
   getInitialState: function(){
     return {
       text: this.props.item.text,
-      done: this.props.item.done
+      done: this.props.item.done,
+      textChanged: false
     }
   },
   componentWillMount: function(){
@@ -25,6 +26,39 @@ module.exports = React.createClass({
        self.fb.remove();
     });
   },
+  handleTextChange: function(event){
+    this.setState({ text: event.target.value,
+                    textChanged: true
+                 });
+  },
+  handleSaveClick: function(){
+    this.fb.update({text: this.state.text});
+    this.setState({textChanged: false});
+  },
+  handleUndoClick: function(){
+    this.setState({
+      text: this.props.item.text,
+      textChanged: false
+    });
+  },
+  changesButton: function(){
+    if(!this.state.textChanged){
+      return null;
+    }else{
+      return [
+          <span>
+            <button
+              className="btn no-border-radius"
+              onClick={this.handleUndoClick}
+              >Undo</button>
+            <button
+                className="btn btn-success no-border-radius"
+                onClick={this.handleSaveClick}
+                >Save</button>
+          </span>
+        ]
+    }
+  },
   render: function(){
     return <div className="input-group">
             <span className="input-group-addon">
@@ -34,10 +68,16 @@ module.exports = React.createClass({
                 checked={this.state.done}
                 />
             </span>
-             <input type="text" className="form-control" value={this.state.text} />
+             <input type="text"
+                    className="form-control"
+                    value={this.state.text}
+                    disabled={this.state.done}
+                    onChange={this.handleTextChange} />
+
              <span className="input-group-btn">
+               {this.changesButton()}
                <button
-                  className="btn btn-default"
+                  className="btn btn-danger"
                   onClick={this.handleDeleteChange}
                   >Delete</button>
              </span>

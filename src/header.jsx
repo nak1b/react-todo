@@ -10,7 +10,7 @@ module.exports = React.createClass({
 		return <div className="input-group">
 			<input onChange={this.handleInputChange} type="text" className="form-control" value={this.state.text}/>
 		  <span className="input-group-btn">
-			   <button onClick={this.handleClick} className="btn btn-default" type="button">Add</button>
+			   <button onClick={this.handleClick} className="btn btn-primary" type="button">Add</button>
 	    </span>
 		</div>
 	},
