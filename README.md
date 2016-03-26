@@ -5,7 +5,12 @@ A todo application in ReactJS with Firebase as backend (BaaS). Used gulp for tas
 
 
 ###Getting Started###
-  > git clone https://github.com/nak1b/react-todo
-	> cd react-todo
+
+Clone the repo, install dependencies, then start the gulp process with the following:
+
+```
+	> git clone https://github.com/StephenGrider/ReactStarter.git
+	> cd ReactStarter
 	> npm install
 	> gulp
+```
